@@ -296,7 +296,7 @@ public class TestServlet extends HttpServlet {
 
 然后配置项目运行所需的 tomcat 环境：
 
-![img](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/调试记录笔记/1编写一个简单的servlet/编写一个简单的servlet.assets/image-20240112174451460.png)
+![img](https://raw.githubusercontent.com/d0ctorsec/IMG_File1/refs/heads/main/JAVA内存马研究/image-20240112174451460.png)
 
 
 
@@ -3749,7 +3749,7 @@ public static String doInject()
 
 - 反射查找 NettyWebServer 线程：通过 `Thread.getThreads()` 获取 JVM 所有线程，筛选出运行 Netty 的线程。
 - 反射获取配置对象链：从线程中层层获取 Netty 配置对象（`val$disposableServer` -> `config` -> `doOnChannelInit`）。
-- 替换 `doOnChannelInit` 字段：将内存马实例赋值给该字段，使得后续 channel 初始化时会调用它的 [onChannelInit()](file:///Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/调试记录笔记/5.编写一个简单的编写一个简单的%20Spring%20WebFlux%20（基于%20Netty）/SpringWebFluxDemo/src/main/java/com/example/springwebfluxdemo/demo/NettyDemo.java#L48-L54) 方法。
+- 替换 `doOnChannelInit` 字段：将内存马实例赋值给该字段，使得后续 channel 初始化时会调用它的 onChannelInit()方法。
 
 简单理解：通过反射操作私有字段，绕过 Spring 的正常注册流程，将恶意 Handler 插入到 Netty 的 pipeline 中。
 
@@ -3985,7 +3985,7 @@ RequestMappingHandlerMapping requestMappingHandlerMapping =
 Method method = InjectedController.class.getMethod("cmd");
 ```
 
-**做了什么**：  将恶意功能（[cmd](file:///Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/调试记录笔记/9.编写一个简单的SpringController组件/SpringDemo/src/main/java/com/example/springdemo/Controller/SpringControllerDemo.java#L50-L68)方法）封装为`Method`对象，作为后续注册的处理器方法。  
+**做了什么**：  将恶意功能cmd方法封装为`Method`对象，作为后续注册的处理器方法。  
 
 **简单理解**：  反射机制允许绕过静态代码检查，直接操作类成员，是内存马常见的技术手段。  
 
@@ -4018,7 +4018,7 @@ requestMappingHandlerMapping.registerMapping(info, injectedController, method);
 
 ---
 
-##### 2.6.恶意载荷分析（[InjectedController.cmd](file:///Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/调试记录笔记/9.编写一个简单的SpringController组件/SpringDemo/src/main/java/com/example/springdemo/Controller/SpringControllerDemo.java#L50-L68)方法）
+##### 2.6.恶意载荷分析InjectedController.cmd方法
 
 ```java
 public void cmd() throws Exception {
