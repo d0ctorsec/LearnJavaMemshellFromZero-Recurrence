@@ -1,2 +1,0 @@
-# LearnJavaMemshellFromZero-Recurrence
-基于W01fh4cker大佬的LearnJavaMemshellFromZero从零掌握java内存马的复现重组版本。
