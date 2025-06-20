@@ -1,4 +1,18 @@
-★开头先感谢[W01fh4cker大佬](https://github.com/W01fh4cker)给我解答了许多复现中我想不明白的问题，这篇文章也是基于大佬的[完全零基础从0到1掌握Java内存马](https://github.com/W01fh4cker/LearnJavaMemshellFromZero),做了一个复现和扩展可以说大佬这篇文章真正做到了每步都可实操复现，我这篇文章就是把大佬的文章结构重组+复现加了一些自己的分析思路，对原文章感兴趣的可以移步大佬的文章，链接挂上面咯。
+![LearnJavaMemshellFromZero-Recurrence](https://socialify.git.ci/d0ctorsec/LearnJavaMemshellFromZero-Recurrence/image?font=Rokkitt&forks=1&issues=1&language=1&name=1&owner=1&stargazers=1&theme=Light)
+
+<h3 align="center">基于W01fh4cker大佬的LearnJavaMemshellFromZero从零掌握java内存马的复现重组版本，整篇文章均可复现。
+
+复现的基础上重组了目录结构，将内存马划分为三大类，额外补充了其他佬的：webSocket、SpringWebFlux Godzilla内存马
+</h3>
+
+
+
+
+---
+
+
+
+★开头感谢[W01fh4cker大佬](https://github.com/W01fh4cker)给我解答了许多复现中我想不明白的问题，这篇文章也是基于大佬的[完全零基础从0到1掌握Java内存马](https://github.com/W01fh4cker/LearnJavaMemshellFromZero),做了一个复现和扩展可以说大佬的文章真正做到了每步都可实操复现，我这篇文章就是把大佬的文章结构重组+复现加了一些自己的分析思路，对原文章感兴趣的可以移步大佬的文章，链接挂上面咯。
 
 ```markdown
 参考：
