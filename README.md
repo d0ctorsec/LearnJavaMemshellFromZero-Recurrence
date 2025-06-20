@@ -94,7 +94,7 @@ Agent 型内存马，更通用。
 拿SpringMVC框架举例，Tomcat开发效率、代码结构、功能扩展性、企业级特性，都不如SpringMVC。Tomcat 是运行环境，负责底层网络通信和 Servlet 规范实现；Spring MVC 是开发框架，负责上层业务逻辑组织。两者结合可大幅提升 Web 应用的开发效率和可维护性。
 ```
 
-![img](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/20200406210730.png)
+![img](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/20200406210730.png)
 
 ## 2.1.Tomcat技术栈
 
@@ -115,7 +115,7 @@ Container: 多个连接器对应一个容器，顶层容器其实就是 Engine�
 Context 容器，而一个 Context 也会包含多个 Servlet，所以 Tomcat 利用组合模式管理组件每个组件，对待过个也想对待单个组一样对待。整体上每个组件设计就像是「俄罗斯套娃」一样。
 ```
 
-![Tomcat 架构](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/20200725210507.png)
+![Tomcat 架构](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/20200725210507.png)
 
 ### 2.1.0.Tomcat连接器
 
@@ -153,14 +153,14 @@ Tomcat 支持的应用层协议有：
 `因此 Tomcat 的设计者设计了 3 个组件来实现这 3 个功能，分别是 EndPoint、Processor 和 Adapter，连接器的三个核心组件分别做三件事情，其中 Endpoint和 Processor放在一起抽象成了 ProtocolHandler组件，它们的关系如下图所示。
 ```
 
-![连接器](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/20200407174755.png)
+![连接器](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/20200407174755.png)
 
 ```markdown
 根据实现的不同，ProtocolHandler又有如下分类：
 ```
 
 
-![img](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/20220729234110-de92f136-0f54-1.png)
+![img](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/20220729234110-de92f136-0f54-1.png)
 
 #### 1.EndPoint 组件
 
@@ -181,7 +181,7 @@ Acceptor跑在一个单独的线程里，它在一个死循环里调用 accept�
 ★`Executor就是线程池，负责运行 SocketProcessor任务类，SocketProcessor 的 run方***调用 Http11Processor 来读取和解析请求数据。我们知道，Http11Processor是应用层协议的封装，它会调用容器获得响应，再把响应通过 Channel写出。
 ```
 
-![NioEndPoint](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/NioEndPoint.jpg)
+![NioEndPoint](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/NioEndPoint.jpg)
 
 #### 2.Processor组件
 
@@ -189,7 +189,7 @@ Processor 用来实现 HTTP 协议，Processor 接收来自 `EndPoint`的 `Socke
 
 **从图中我们看到，EndPoint 接收到 Socket 连接后，生成一个 SocketProcessor 任务提交到线程池去处理，SocketProcessor 的 Run 方\***调用 HttpProcessor 组件去解析应用层协议，Processor 通过解析生成 Request 对象后，会调用 Adapter 的 Service 方法，方法内部通过 以下代码将请求传递到容器中。
 
-![img](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/20200407180342.png)
+![img](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/20200407180342.png)
 
 #### 3.Adapter 组件
 
@@ -219,7 +219,7 @@ Context（上下文）：代表 Servlet 的 Context，它具备了 Servlet 运�
 Wrapper（包装器）：代表一个 Servlet，它负责管理一个 Servlet，包括的 Servlet 的装载、初始化、执行以及资源回收。Wrapper 是最底层的容器，它没有子容器了，所以调用它的 addChild 将会报错。
 ```
 
-![img](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/20240112165508.png)
+![img](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/20240112165508.png)
 
 
 
@@ -238,7 +238,7 @@ Host 确定以后，Mapper 根据 URL 的路径来匹配相应的 Web 应用的�
 Context 确定后，Mapper 再根据 web.xml 中配置的 Servlet 映射路径来找到具体的 Wrapper 和 Servlet。
 ```
 
-![img](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/20200407192105.png)
+![img](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/20200407192105.png)
 
 #### 1.Servlet规范
 
@@ -276,7 +276,7 @@ pom.xml文件如下：
 </project>
 ```
 
-同步下依赖：[![img](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20240112174417723.png)](https://raw.githubusercontent.com/W01fh4cker/blog_image/main/image/image-20240112174417723.png)
+同步下依赖：[![img](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20240112174417723.png)](https://raw.githubusercontent.com/W01fh4cker/blog_image/main/image/image-20240112174417723.png)
 
 TestServlet.java 码如下：
 
@@ -303,45 +303,45 @@ public class TestServlet extends HttpServlet {
 
 
 
-![img](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20240112174520045.png)
+![img](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20240112174520045.png)
 
-[![img](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20240112174543728.png)](https://raw.githubusercontent.com/W01fh4cker/blog_image/main/image/image-20240112174543728.png)
+[![img](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20240112174543728.png)](https://raw.githubusercontent.com/W01fh4cker/blog_image/main/image/image-20240112174543728.png)
 
 然后配置 artifacts ，直接点击 fix：
 
-[![img](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20240112174604960.png)](https://raw.githubusercontent.com/W01fh4cker/blog_image/main/image/image-20240112174604960.png)
+[![img](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20240112174604960.png)](https://raw.githubusercontent.com/W01fh4cker/blog_image/main/image/image-20240112174604960.png)
 
-[![img](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20240112174718456.png)](https://raw.githubusercontent.com/W01fh4cker/blog_image/main/image/image-20240112174718456.png)
+[![img](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20240112174718456.png)](https://raw.githubusercontent.com/W01fh4cker/blog_image/main/image/image-20240112174718456.png)
 
-[![img](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20240112174740574.png)](https://raw.githubusercontent.com/W01fh4cker/blog_image/main/image/image-20240112174740574.png)
+[![img](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20240112174740574.png)](https://raw.githubusercontent.com/W01fh4cker/blog_image/main/image/image-20240112174740574.png)
 
 ★然后添加 web 
 
-[![img](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20240112175906956.png)](https://raw.githubusercontent.com/W01fh4cker/blog_image/main/image/image-20240112175906956.png)
+[![img](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20240112175906956.png)](https://raw.githubusercontent.com/W01fh4cker/blog_image/main/image/image-20240112175906956.png)
 
-[![img](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20240112181600664.png)](https://raw.githubusercontent.com/W01fh4cker/blog_image/main/image/image-20240112181600664.png)
+[![img](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20240112181600664.png)](https://raw.githubusercontent.com/W01fh4cker/blog_image/main/image/image-20240112181600664.png)
 
 运行之后，访问http://localhost:8080/testServlet/test：下图是换Web应用地址了
 
-![image-20250606155445916](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250606155445916-9196487.png)
+![image-20250606155445916](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250606155445916-9196487.png)
 
 ###### 1.0.1.servlet 初始化流程分析
 
 我们在`org.apache.catalina.core.StandardWrapper#setServletClass`处下断点调试：
 
-[![img](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20240115162053776.png)](https://raw.githubusercontent.com/W01fh4cker/blog_image/main/image/image-20240115162053776.png)
+[![img](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20240115162053776.png)](https://raw.githubusercontent.com/W01fh4cker/blog_image/main/image/image-20240115162053776.png)
 
 我们尝试按Ctrl+左键追踪它的上层调用位置，但是提示我们找不到，需要按两次 Ctrl+Alt+F7 ：
 
-[![img](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20240115162215565.png)](https://raw.githubusercontent.com/W01fh4cker/blog_image/main/image/image-20240115162215565.png)
+[![img](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20240115162215565.png)](https://raw.githubusercontent.com/W01fh4cker/blog_image/main/image/image-20240115162215565.png)
 
 然后就可以看到，上层调用位置位于`org.apache.catalina.startup.ContextConfig#configureContext`：
 
-[![img](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20240115162319884.png)](https://raw.githubusercontent.com/W01fh4cker/blog_image/main/image/image-20240115162319884.png)
+[![img](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20240115162319884.png)](https://raw.githubusercontent.com/W01fh4cker/blog_image/main/image/image-20240115162319884.png)
 
 [![img](https://raw.githubusercontent.com/W01fh4cker/blog_image/main/image/image-20240115162405771.png)](https://raw.githubusercontent.com/W01fh4cker/blog_image/main/image/image-20240115162405771.png)
 
-接下来我们详细看下面这段代码：[![img](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20240115184354717.png)](https://raw.githubusercontent.com/W01fh4cker/blog_image/main/image/image-20240115184354717.png)
+接下来我们详细看下面这段代码：[![img](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20240115184354717.png)](https://raw.githubusercontent.com/W01fh4cker/blog_image/main/image/image-20240115184354717.png)
 
 ```
 for (ServletDef servlet : webxml.getServlets().values()) {
@@ -416,11 +416,11 @@ for (ServletDef servlet : webxml.getServlets().values()) {
 
 我们在`org.apache.catalina.core.StandardWrapper#loadServlet`这里打下断点进行调试，重点关注`org.apache.catalina.core.StandardContext#startInternal`：
 
-[![img](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20240115193750678.png)](https://raw.githubusercontent.com/W01fh4cker/blog_image/main/image/image-20240115193750678.png)
+[![img](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20240115193750678.png)](https://raw.githubusercontent.com/W01fh4cker/blog_image/main/image/image-20240115193750678.png)
 
 可以看到，装载顺序为Listener-->Filter-->Servlet：
 
-[![img](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20240115194704999.png)](https://raw.githubusercontent.com/W01fh4cker/blog_image/main/image/image-20240115194704999.png)
+[![img](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20240115194704999.png)](https://raw.githubusercontent.com/W01fh4cker/blog_image/main/image/image-20240115194704999.png)
 
 可以看到，上面红框中的代码都调用了`org.apache.catalina.core.StandardContext#loadOnStartup`，`Ctrl+左键`跟进该方法，代码如下：
 
@@ -468,7 +468,7 @@ public boolean loadOnStartup(Container children[]) {
 3.紧接着是FilterMaps，它是用于将FilterConfigs映射到具体的请求路径或其他标识上，这样系统在处理请求时就能够根据请求的路径或标识找到对应的FilterConfigs，从而确定要执行的过滤器链；而FilterChain是由多个FilterConfigs组成的链式结构，它定义了过滤器的执行顺序，在处理请求时系统会按照FilterChain中的顺序依次执行每个过滤器，对请求进行过滤和处理。
 ```
 
-![filter-demo](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/filter-demo-8948816.png)
+![filter-demo](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/filter-demo-8948816.png)
 
 ###### 1.1.1.编写一个 Filter
 
@@ -501,7 +501,7 @@ public class TestFilter implements Filter {
 
 跑起来之后，控制台输出`[*] Filter初始化创建`，当我们访问`/test`路由的时候，控制台继续输出`[*] Filter执行过滤操作`，当我们结束tomcat的时候，会触发destroy方法，从而输出`[*] Filter已销毁`：
 
-![image-20250603191922707](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250603191922707-8949567.png)
+![image-20250603191922707](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250603191922707-8949567.png)
 
 ###### 1.1.2.FIlter流程解析
 
@@ -559,30 +559,30 @@ public class DemoFilter implements Filter {
 ```
 
 接下来在`doFilter()`方法打下断点，运行tomcat服务器并访问:
-![img](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/20220217104758.png)
+![img](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/20220217104758.png)
 查看调用栈，跟进`StandardWrapperVavle.invoke()`方法:
-![img](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/20220217104858.png)
+![img](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/20220217104858.png)
 发现他是根据filterChain来去做filter的，根据搜索找到filterChain的定义位置:
-![img](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/20220217104949.png)
+![img](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/20220217104949.png)
 重新下断点到这个位置，跟进`ApplicationFilterFactory.createFilterChain()`方法，分析该方法，发现其先会会调用 `getParent()` 方法获取`StandardContext`，再获取filterMaps:
-![img](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/20220217105248.png)
+![img](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/20220217105248.png)
 filterMaps中的 filterMap 主要存放了过滤器的名字以及作用的 url:
-![img](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/20220217105332.png)
+![img](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/20220217105332.png)
 接下来会遍历filterMaps 中的 filterMap，如果发现符合当前请求 url 与 filterMap 中的 urlPattern 匹配且通过filterName能找到对应的filterConfig，则会将其加入filterChain:
-![img](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/20220217105551.png)
+![img](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/20220217105551.png)
 查看filterConfig的结构，里面主要包含了filter名，filter和filterDef:
-![img](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/20220217105911.png)
+![img](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/20220217105911.png)
 至此filterChain组装完毕，重新回到 StandardContextValue 中，后面会调用 `filterChain.doFilter()` 方法:
-![img](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/20220217110138.png)
+![img](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/20220217110138.png)
 跟进 `filterChain.doFilter()` 方法，其会调用`internalDoFilter()`方法:
-![img](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/20220217110558.png)
+![img](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/20220217110558.png)
 会从filters中依次拿到filter和filterConfig，最终调用`filter.doFilter()`:
-![img](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/20220217110841.png)
+![img](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/20220217110841.png)
 
 
 
 引用一张经典图片来描述filter的工作原理:
-![img](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/20220216175207.png)
+![img](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/20220216175207.png)
 
 
 
@@ -593,20 +593,20 @@ filterMaps中的 filterMap 主要存放了过滤器的名字以及作用的 url:
 ```
 
 动态添加filter的目的:
-![img](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/20220217112015.png)
-![img](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/20220217112027.png)
+![img](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/20220217112015.png)
+![img](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/20220217112027.png)
 
 实际上StandardContext也有一些方法可以帮助我们添加属性。首先我们来看filtermaps，StandardContext直接提供了对应的添加方法(Before是将filter放在首位，正是我们需要的)，这里再往filterMaps添加之前会有一个校验filtermap是否合法的操作，跟进`validateFilterMap()`:
-![img](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/20220217112920.png)
+![img](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/20220217112920.png)
 可以看到这里有一个坑点，它会根据filterName去寻找对应的filterDef，如果没找到的话会直接抛出异常，也就是说我们还需要往filterDefs里添加filterDef。
-![img](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/20220217112417.png)
+![img](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/20220217112417.png)
 
 那么我们接下来再看filterDefs，StandardContext直接提供了对应的添加方法:
-![img](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/20220217112602.png)
+![img](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/20220217112602.png)
 
 最后我们再来看filterConfigs，根据命名规则搜索`addFilterConfig`，发现并没有这个方法，所以我们考虑要通过反射的方法手动获取属性并添加:
 ![img](https://tuchuang-1300339532.cos.ap-chengdu.myqcloud.com/img/20220217112715.png)
-![img](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/20220217112750.png)
+![img](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/20220217112750.png)
 
 ```markdown
 我们先来了解一下在Tomcat中与Filter密切相关的几个类:
@@ -762,32 +762,32 @@ public class DemoListener implements ServletRequestListener {
 ###### 1.2.1.Listener流程解析
 
 然后我们在这个Listener的class部分和`requestInitialized()`下断点:
-![image-20250604113231248](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250604113231248.png)
+![image-20250604113231248](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250604113231248.png)
 
 ```markdown
 开启调试触发断点，根据堆栈回溯找到`StandardContext.listenerStart()`方法，这里要点进去搜一下就可以搜到了，可以看到它先调用`findApplicationListeners()`获取Listener的名字，然后实例化:
 ```
 
-![image-20250604113344827](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250604113344827.png)
+![image-20250604113344827](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250604113344827.png)
 
 ```markdown
 接着他会遍历results中的Listener，根据不同的类型放入不同的数组，我们这里的ServletRequestListener放入eventListeners数组中:
 ```
 
-![image-20250604114213886](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250604114213886.png)
+![image-20250604114213886](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250604114213886.png)
 
 ```markdown
 往下翻几行可以看到，通过调用`getApplicationEventListeners()`获取`applicationEventListenersList`中的值，然后再设置applicationEventListenersList，可以理解为applicationEventListenersList加上刚刚实例化的eventListeners。
 ```
 
-![image-20250604114630931](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250604114630931.png)
-![image-20250604114910271](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250604114910271.png)
+![image-20250604114630931](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250604114630931.png)
+![image-20250604114910271](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250604114910271.png)
 
 ```markdown
 1.接下来调试器窗口按F9，看第二个断点，根据调用堆栈我们找到了fireRequestInitEvent()方法
 ```
 
-![img](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250604115425373-9009271.png)
+![img](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250604115425373-9009271.png)
 
 ```markdown
 1.往下翻几行看到调用了 listener.requestInitialized(event); 
@@ -795,11 +795,11 @@ public class DemoListener implements ServletRequestListener {
 X.看到这儿是不是很熟悉了～ 没错就是上面那个函数将实例添加进去的地方,我们的内存马只需要添加到这个数组里面就可以了
 ```
 
-![image-20250604120348902](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250604120348902.png)
+![image-20250604120348902](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250604120348902.png)
 
-![image-20250604121211102](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250604121211102.png)
+![image-20250604121211102](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250604121211102.png)
 
-![image-20250604120845781](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250604120845781.png)
+![image-20250604120845781](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250604120845781.png)
 
 
 
@@ -942,9 +942,9 @@ public class TestConfig implements WebServerFactoryCustomizer<TomcatServletWebSe
 运行后访问，http://localhost:8081/成功出来请求
 ```
 
-![image-20250605120637945](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250605120637945.png)
+![image-20250605120637945](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250605120637945.png)
 
-![image-20250605120702825](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250605120702825.png)
+![image-20250605120702825](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250605120702825.png)
 
 
 
@@ -972,7 +972,7 @@ Pipeline定义对应的接口Pipeline，标准实现了StandardPipeline。Valve�
 这张图是新加坡的Dennis Jacob在ApacheCON Asia 2022上的演讲《Extending Valves in Tomcat》中的PPT中的图片，这篇演讲的录屏在[Youtube](https://www.youtube.com/watch?v=Jmw-d0kyZ_4)上面可以找到。
 ```
 
-[![img](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20240129171852854.png)](https://raw.githubusercontent.com/W01fh4cker/blog_image/main/image/image-20240129171852854.png)
+[![img](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20240129171852854.png)](https://raw.githubusercontent.com/W01fh4cker/blog_image/main/image/image-20240129171852854.png)
 
 ##### 2.1.编写一个简单 Tomcat Valve 的 demo
 
@@ -1022,13 +1022,13 @@ public class TestConfig {
 
 
 
-![image-20250605101625424](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250605101625424.png)
+![image-20250605101625424](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250605101625424.png)
 
 ```markdown
 运行后可以看到
 ```
 
-![image-20250605105818275](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250605105818275.png)
+![image-20250605105818275](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250605105818275.png)
 
 ##### 2.2.Tomcat Valve 打入内存马思路分析
 
@@ -1036,7 +1036,7 @@ public class TestConfig {
 我们通常情况下用的都是ValveBase，从com.example.tomcatvalvedemo.TomcatDemo.TestValve进这个ValveBase，可以看到是实现了Valve接口：
 ```
 
-![image-20250605104636669](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250605104636669.png)
+![image-20250605104636669](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250605104636669.png)
 
 点进valve可以看到该接口代码如下，这里我加上了注释：
 
@@ -1065,21 +1065,21 @@ public interface Valve {
 
 接下来就是调试看看这个valve的运行流程了，我们在invoke函数这里下断点调试：
 
-![image-20250605111012447](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250605111012447.png)
+![image-20250605111012447](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250605111012447.png)
 
 ```markdown
 我们看向左下角，看看之前调用到的invoke方法，在StandardHostValve.java中，代码为：
 context.getPipeline().getFirst().invoke(request, response);
 ```
 
-![image-20250605111059756](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250605111059756.png)
+![image-20250605111059756](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250605111059756.png)
 
 ```markdown
 在StandardEngineValve.java中，代码为：
 host.getPipeline().getFirst().invoke(request, response);
 ```
 
-![image-20250605111204873](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250605111204873.png)
+![image-20250605111204873](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250605111204873.png)
 
 既然我们的目的是打入内存马，那==根据我们掌握的Tomcat Servlet/Filter/Listener内存马的思路来看，我们需要通过某种方式添加我们自己的恶意valve。==
 
@@ -1087,27 +1087,27 @@ host.getPipeline().getFirst().invoke(request, response);
 我们去掉之前打的断点，在StandardHostValve.java这里打上断电并重新调试：
 ```
 
-![image-20250605112548897](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250605112548897.png)
+![image-20250605112548897](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250605112548897.png)
 
 ```markdown
 然后step into，鼠标左键选择这里的getPipeline()方法，即可进入到所调用的函数实现的位置：
 ```
 
-![image-20250605112959159](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250605112959159.png)
+![image-20250605112959159](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250605112959159.png)
 
 ```markdown
 再Ctrl+H进入Pipeline接口，可以看到是有个addValve方法，
 ```
 
-![image-20250605113305363](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250605113305363.png)
+![image-20250605113305363](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250605113305363.png)
 
-![](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250605113708401.png)
+![](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250605113708401.png)
 
 ```markdown
 这不正是我们需要的吗？看看它是在哪儿实现的，直接在addValve函数处Ctrl+shift+H找继承该接口的类，可可以看到是在org.apache.catalina.core.StandardPipeline中：
 ```
 
-![image-20250605114927080](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250605114927080.png)
+![image-20250605114927080](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250605114927080.png)
 
 ```markdown
 但是问题就来了，我们无法直接获取到这个StandardPipeline类，而我们能直接获取到的是StandardContext，那就去看看StandardContext.java中有没有获取StandardPipeline的方法，一眼就能看到我们的老熟人——getPipeline方法：
@@ -1118,7 +1118,7 @@ host.getPipeline().getFirst().invoke(request, response);
 X. 我们也可以反射获取StandardPipeline，然后再addValve，这样也是可以的。
 ```
 
-![image-20250605115255049](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250605115255049.png)
+![image-20250605115255049](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250605115255049.png)
 
 ### 2.1.2.Tomcat Executor 线程池
 
@@ -1173,17 +1173,17 @@ public class TestServlet extends HttpServlet {
 
 然后访问浏览器对应context下的test路由：
 
-![image-20250605161458409](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250605161458409-9111299.png)
+![image-20250605161458409](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250605161458409-9111299.png)
 
 #### 2.Executor 相关代码分析
 
 点开Executor.java即可看到有一个execute方法，`Ctrl+Alt+F7`追踪即可看到这个Executor接口在AbstractEndpoint这个抽象类中有相关实现：
 
-![image-20250605162048495](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250605162048495-9111649.png)
+![image-20250605162048495](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250605162048495-9111649.png)
 
 在AbstractEndpoint.java中搜索executor，往下翻即可看到有setExecutor和getExecutor这两个函数：
 
-![image-20250605163413665](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250605163413665.png)
+![image-20250605163413665](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250605163413665.png)
 
 查看getExecutor函数的调用位置，发现就在该文件中有一个关键调用：
 
@@ -1215,7 +1215,7 @@ public class TestServlet extends HttpServlet {
 
 
 
-![image-20250605195651068](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250605195651068.png)
+![image-20250605195651068](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250605195651068.png)
 
 为了输出修改TestServlet.java代码如下：
 
@@ -1273,20 +1273,20 @@ TargetObject = {org.apache.tomcat.util.threads.TaskThread}
             ---> request = {org.apache.coyote.Request}
 ```
 
-![image-20250605200534585](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250605200534585.png)
+![image-20250605200534585](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250605200534585.png)
 
 我们来验证一下，在`org/apache/tomcat/util/net/NioEndpoint.java`的这里下断点，不断step over，就可以找到这里的request的位置：
 
-![image-20250605201714398](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250605201714398.png)
+![image-20250605201714398](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250605201714398.png)
 
 ```markdown
 点开这里的byteBuffer-hb，可以看到它是一个字节数组，右键找到`View as ... String`即可变成字符串，再点击上面我指出来的View Text即可清楚看到具体内容：
 这就意味着我们可以把命令作为header的一部分传入，再把结果作为header的一部分传出即可。
 ```
 
-![image-20250605201945618](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250605201945618.png)
+![image-20250605201945618](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250605201945618.png)
 
-![image-20250605202008509](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250605202008509.png)
+![image-20250605202008509](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250605202008509.png)
 
 ## 2.2.Spring Web 技术栈
 
@@ -1305,9 +1305,9 @@ Spring Boot是由Pivotal团队提供的全新框架，其设计目的是用来�
 2.选择需要的依赖，这里选择Spring Web，SpringBoot版本选择默认的2.6.13
 ```
 
-![image-20250604134427595](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250604134427595.png)
+![image-20250604134427595](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250604134427595.png)
 
-![image-20250604134846015](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250604134846015.png)
+![image-20250604134846015](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250604134846015.png)
 
 ```markdown
 如下图所示，Spring Boot的基础结构共三个文件夹(具体路径根据用户生成项目时填写的Group和ArtiFact有所差异）:
@@ -1316,7 +1316,7 @@ Spring Boot是由Pivotal团队提供的全新框架，其设计目的是用来�
 3. src/test/下的测试入口：SpringDemoApplicationTests
 ```
 
-![image-20250604135404279](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250604135404279.png)
+![image-20250604135404279](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250604135404279.png)
 
 ### 2.2.2.Spring MVC框架
 
@@ -1329,7 +1329,7 @@ Spring Boot是由Pivotal团队提供的全新框架，其设计目的是用来�
 ④~⑦表示视图解析器解析ModelAndView对象并返回对应的视图给客户端。
 ```
 
-![img](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/springmvc2-9026352.png)
+![img](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/springmvc2-9026352.png)
 
 #### 2.IOC容器
 
@@ -1364,7 +1364,7 @@ ThemeResolver（主题解析器）：用于解析Web应用的主题，实现界�
 
 但是没有`init()`函数，我们翻看其父类FrameworkServlet的父类`org.springframework.web.servlet.HttpServletBean`的时候发现有init函数：
 
-[![img](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20240118153925178.png)](https://raw.githubusercontent.com/W01fh4cker/blog_image/main/image/image-20240118153925178.png)
+[![img](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20240118153925178.png)](https://raw.githubusercontent.com/W01fh4cker/blog_image/main/image/image-20240118153925178.png)
 
 代码如下：
 
@@ -1399,11 +1399,11 @@ public final void init() throws ServletException {
 
 我们点进去之后发现该函数并没有写任何内容，说明应该是子类继承的时候override了该方法：
 
-[![img](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20240118154412364.png)](https://raw.githubusercontent.com/W01fh4cker/blog_image/main/image/image-20240118154412364.png)
+[![img](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20240118154412364.png)](https://raw.githubusercontent.com/W01fh4cker/blog_image/main/image/image-20240118154412364.png)
 
 果不其然，我们在`org.springframework.web.servlet.FrameworkServlet`中成功找到了该方法：
 
-[![img](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20240118154436747.png)](https://raw.githubusercontent.com/W01fh4cker/blog_image/main/image/image-20240118154436747.png)
+[![img](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20240118154436747.png)](https://raw.githubusercontent.com/W01fh4cker/blog_image/main/image/image-20240118154436747.png)
 
 代码如下：
 
@@ -1441,15 +1441,15 @@ protected final void initServletBean() throws ServletException {
 
 这段代码的log和计时部分就不说了，我们捡关键的说。它先是调用initWebApplicationContext方法，初始化IOC容器，在初始化的过程中，会调用到这个onRefresh方法，一般来说这个方法是在容器刷新完成后被调用的回调方法，它执行一些在应用程序启动后立即需要完成的任务：
 
-[![img](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20240118155901114.png)](https://raw.githubusercontent.com/W01fh4cker/blog_image/main/image/image-20240118155901114.png)
+[![img](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20240118155901114.png)](https://raw.githubusercontent.com/W01fh4cker/blog_image/main/image/image-20240118155901114.png)
 
 跟入该方法，可以看到其中默认为空：
 
-[![img](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20240118160618786.png)](https://raw.githubusercontent.com/W01fh4cker/blog_image/main/image/image-20240118160618786.png)
+[![img](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20240118160618786.png)](https://raw.githubusercontent.com/W01fh4cker/blog_image/main/image/image-20240118160618786.png)
 
 说明在它的子类中应该会有override，果然我们定位到了`org.springframework.web.servlet.DispatcherServlet#`方法：这一下就明了了起来，这不是我们之前提到的九大组件嘛，到这一步就完成了Spring MVC的九大组件的初始化。
 
-[![img](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20240118160730953.png)](https://raw.githubusercontent.com/W01fh4cker/blog_image/main/image/image-20240118160730953.png)
+[![img](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20240118160730953.png)](https://raw.githubusercontent.com/W01fh4cker/blog_image/main/image/image-20240118160730953.png)
 
 ##### 3.1.SpringMVC 框架Interceptor组件
 
@@ -1530,9 +1530,9 @@ public class HelloController {
 
 运行Spring并且访问http://127.0.0.1:8080/?cmd=ps%20-a，成功命令执行
 
-![image-20250604143628258](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250604143628258.png)
+![image-20250604143628258](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250604143628258.png)
 
-![image-20250604144244554](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250604144244554.png)
+![image-20250604144244554](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250604144244554.png)
 
 ###### 2.Spring Interceptor引入与执行流程分析
 
@@ -1559,19 +1559,19 @@ public class HelloController {
 
 一步步步入调试之后，发现进入`org.springframework.web.servlet.DispatcherServlet#doDispatch`方法：
 
-![image-20250604181950369](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250604181950369-9032394.png)
+![image-20250604181950369](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250604181950369-9032394.png)
 
 我们在doDispatch方法的第一行下断点，重新访问页面调试：
 
-![image-20250604181720018](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250604181720018.png)
+![image-20250604181720018](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250604181720018.png)
 
 step over步入往下走看到了调用了getHandler这个函数，它的注释写的简单易懂：确定处理当前请求的handler，我们step into看看：
 
-![image-20250604183104007](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250604183104007.png)
+![image-20250604183104007](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250604183104007.png)
 
 通过遍历当前handlerMapping数组中的handler对象，来判断哪个handler来处理当前的request对象：
 
-![image-20250604183227013](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250604183227013-9033148.png)
+![image-20250604183227013](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250604183227013-9033148.png)
 
 ```markdown
 继续step over步入这个函数里面所用到的mapping.getHandler方法，也就是`org.springframework.web.servlet.handler.AbstractHandlerMapping#getHandler`：
@@ -1582,15 +1582,15 @@ step over步入往下走看到了调用了getHandler这个函数，它的注释�
 4.最后通过 `getHandlerExecutionChain` 方法创建一个处理器执行链。
 ```
 
-![image-20250604183455850](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250604183455850.png)
+![image-20250604183455850](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250604183455850.png)
 
-![image-20250604183752119](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250604183752119.png)
+![image-20250604183752119](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250604183752119.png)
 
 ```markdown
 这么看下来，这个`getHandlerExecutionChain`方法很重要，我们打断点调试，步入看看：
 ```
 
-![image-20250604184208749](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250604184208749.png)
+![image-20250604184208749](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250604184208749.png)
 
 ```markdown
 步入到getHandlerExecutionChain:604, AbstractHandlerMapping (org.springframework.web.servlet.handler)
@@ -1600,17 +1600,17 @@ step over步入往下走看到了调用了getHandler这个函数，它的注释�
 3.返回最终的执行链对象。
 ```
 
-![image-20250604184755558](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250604184755558.png)
+![image-20250604184755558](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250604184755558.png)
 
 再回到之前的getHandler方法中来，看看它的后半段：
 
-![image-20250604184903775](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250604184903775.png)
+![image-20250604184903775](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250604184903775.png)
 
 主要都是处理跨域资源共享（CORS）的逻辑，只需要知道在涉及CORS的时候把request、executionChain和CORS配置通过`getCorsHandlerExecutionChain`调用封装后返回就行了。
 
 一步步执行回到一开始的getHandler中，这里就是调用`org.springframework.web.servlet.HandlerExecutionChain#applyPreHandle`方法来遍历所有拦截器进行预处理，后面的代码就基本不需要了解了：
 
-![image-20250604185246764](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250604185246764.png)
+![image-20250604185246764](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250604185246764.png)
 
 ##### 3.2.编写SpringMVC框架Controller组件
 
@@ -1633,7 +1633,7 @@ public class HelloWorldController {
 }
 ```
 
-![image-20250604140828863](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250604140828863.png)
+![image-20250604140828863](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250604140828863.png)
 
 ```markdown
 这里解释一下其中的2个注解的作用:
@@ -1643,7 +1643,7 @@ public class HelloWorldController {
 4. @RequestMapping: 设置请求映射(即路由)
 ```
 
-![image-20250604140759514](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250604140759514.png)
+![image-20250604140759514](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250604140759514.png)
 
 **1.配置**
 
@@ -1661,9 +1661,9 @@ logging.level.org.springframework.web.servlet.mvc.method.annotation.RequestMappi
 运行SpringbootStudyApplication.main()方法，启动springboot，有以下信息就证明controller被成功加载了。
 ```
 
-![image-20250604142243516](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250604142243516.png)
+![image-20250604142243516](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250604142243516.png)
 
-![image-20250604142212439](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250604142212439.png)
+![image-20250604142212439](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250604142212439.png)
 
 
 
@@ -1754,13 +1754,13 @@ Flux表示的是`0到N个元素的异步序列，可以以异步的方式按照�
 3.SpringBoot选择2.6.13
 ```
 
-![image-20250604145033959](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250604145033959.png)
+![image-20250604145033959](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250604145033959.png)
 
 ```java
 选择Spring Reactive Web
 ```
 
-![image-20250604145132389](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250604145132389.png)
+![image-20250604145132389](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250604145132389.png)
 
 接着新建一个demo文件，加入两个类
 
@@ -1803,19 +1803,19 @@ public class GreetingRouter {
 }
 ```
 
-![image-20250604154112363](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250604154112363.png)
+![image-20250604154112363](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250604154112363.png)
 
 ```java
 1.新建`main/resources`文件夹，然后新建`application.properties`，通过server.port来控制netty服务的端口：
 ```
 
-![image-20250604154318252](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250604154318252.png)
+![image-20250604154318252](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250604154318252.png)
 
 ```markdown
 1.启动主类`SpringWebFluxDemoApplication`，访问`http://localhost:8080/hello`可以成功运行
 ```
 
-![image-20250604154407631](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250604154407631.png)
+![image-20250604154407631](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250604154407631.png)
 
 #### 4.Spring WebFlux 启动过程分析
 
@@ -1823,7 +1823,7 @@ public class GreetingRouter {
 我们直接在run方法这里下断点，然后直接step into：
 ```
 
-![image-20250604192000321](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250604192000321.png)
+![image-20250604192000321](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250604192000321.png)
 
 ```markdown
 最后跟进到真正的webServer启动的关键方法是org.springframework.boot.web.embedded.netty.NettyWebServer#startHttpServer，断点调试
@@ -1831,9 +1831,9 @@ public class GreetingRouter {
 单步跳过，从下面的this.webServer中也可以看到，绑定的是0.0.0.0:9191：
 ```
 
-![image-20250604192201739](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250604192201739.png)
+![image-20250604192201739](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250604192201739.png)
 
-![image-20250604192819140](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250604192819140.png)
+![image-20250604192819140](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250604192819140.png)
 
 #### 5.Spring WebFlux 请求处理过程分析
 
@@ -1842,14 +1842,14 @@ public class GreetingRouter {
 这里我们在org.example.webfluxmemoryshelldemo.hello.GreetingHandler#hello这里打上断点，然后进行调试，访问http://127.0.0.1:9191/hello触发debug：
 ```
 
-![image-20250604193541581](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250604193541581.png)
+![image-20250604193541581](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250604193541581.png)
 
 ```markdown
 1. 最后多次步入发现是在org.springframework.web.reactive.function.server.support.HandlerFunctionAdapter#handle方法
 2. 而这里的handlerFunction.handle也就是我们编写的route方法
 ```
 
-![image-20250604193924969](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250604193924969.png)
+![image-20250604193924969](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250604193924969.png)
 
 #### 6.★Spring WebFlux 过滤器 WebFilter 运行过程分析
 
@@ -1891,19 +1891,19 @@ public class GreetingFilter implements WebFilter {
 运行后，访问http://127.0.0.1:8080/hello，经过过滤器输出
 ```
 
-![image-20250604195719182](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250604195719182.png)
+![image-20250604195719182](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250604195719182.png)
 
 我们直接在filter函数这里下断点，进行调试：
 
-![image-20250604200144194](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250604200144194.png)
+![image-20250604200144194](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250604200144194.png)
 
 注意到return中调用了filter函数，于是step into看看：
 
-![image-20250604200304263](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250604200304263.png)
+![image-20250604200304263](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250604200304263.png)
 
 可以看到是调用了invokeFilter函数。我们仔细看看这个DefaultWebFilterChain类：
 
-![image-20250604200458129](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250604200458129.png)
+![image-20250604200458129](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250604200458129.png)
 
 ```markdown
 可以看到是有三个名为DefaultWebFilterChain的函数，其中第一个是公共构造函数，第二个是私有构造函数（用来创建`chain`的中间节点），第三个是已经过时的构造函数。而在该类的注释中，有这样一句话：
@@ -1911,21 +1911,21 @@ public class GreetingFilter implements WebFilter {
 `Each instance of this class represents one link in the chain. The public constructor DefaultWebFilterChain(WebHandler, List) initializes the full chain and represents its first link.`
 ```
 
-![image-20250604200947997](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250604200947997.png)
+![image-20250604200947997](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250604200947997.png)
 
 也就是说，通过调用 `DefaultWebFilterChain` 类的公共构造函数，我们初始化了一个完整的过滤器链，其中的每个实例都代表链中的一个link，而不是一个chain，这就意味着我们无法通过修改下图中的`chain.allFilters`来实现新增Filter：
 
-![image-20250605092529808](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250605092529808.png)
+![image-20250605092529808](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250605092529808.png)
 
 但是这个类里面有个initChain方法用来初始化过滤器链，这个方法里面调用的是这个私有构造方法：
 
-![image-20250605092721841](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250605092721841.png)
+![image-20250605092721841](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250605092721841.png)
 
 那我们就看看这个公共构造方法是在哪里调用的：
 
 光标移至该方法，按两下`Ctrl+Alt+F7`：调用的地方位于`org.springframework.web.server.handler.FilteringWebHandler#FilteringWebHandler`：
 
-![image-20250605094100204](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250605094100204.png)
+![image-20250605094100204](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250605094100204.png)
 
 ```markdown
 1. 我们只需要构造一个`DefaultWebFilterChain`对象，，然后把它通过反射写入到`FilteringWebHandler`类对象的chain属性中就可以了。那现在就剩下传入handler和filters这两个参数了，这个`handler参数很好搞，就在chain里面`：
@@ -1933,7 +1933,7 @@ public class GreetingFilter implements WebFilter {
 3. 从内存中找到DefaultWebFilterChain的位置，然后一步步反射就行。这里直接使用工具，克隆下来该项目，放到idea中mvn clean install...
 ```
 
-![image-20250605094343042](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250605094343042.png)
+![image-20250605094343042](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250605094343042.png)
 
 # 三.中间件系内存马
 
@@ -2116,29 +2116,29 @@ StandardContext存在于org.apache.catalina.core.StandardContext。
 %>
 ```
 
-![image-20250606185755415](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250606185755415.png)
+![image-20250606185755415](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250606185755415.png)
 
 访问网站webshell地址，发现木马已经成功写入类内存马。可以发现，每请求一次webshell就会生成一个servlet内存马。
 
-![image-20250606190042081](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250606190042081.png)
+![image-20250606190042081](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250606190042081.png)
 
-![image-20250606190237868](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250606190237868.png)
+![image-20250606190237868](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250606190237868.png)
 
 ```markdown
 那我们经常听人说的内存马杀不死是什么意思呢，我们这里模拟一下受害者发现我们的木马，对木马进行了删除操作。先把servlet.jsp改为不解析的txt，再重新加载源码,发现内存马还能继续执行
 ```
 
-![image-20250606191603223](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250606191603223.png)
+![image-20250606191603223](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250606191603223.png)
 
-![image-20250606191114095](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250606191114095.png)
+![image-20250606191114095](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250606191114095.png)
 
 ```markdown
 正确的解决办法，我们删除webshell，重启一下Tomcat服务，servlet内存马就不存在了
 ```
 
-![image-20250606191739944](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250606191739944.png)
+![image-20250606191739944](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250606191739944.png)
 
-![image-20250606191810357](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250606191810357.png)
+![image-20250606191810357](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250606191810357.png)
 
 ### 3.0.2.servlet 内存马代码分析
 
@@ -2604,9 +2604,9 @@ servletResponse.setHeader("Server", "Apache/2.4.41"); // 伪装服务器
 
 启动访问filterdemo.jsp效果如下，但是只能访问一次
 
-![image-20250617120502711](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250617120502711.png)
+![image-20250617120502711](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250617120502711.png)
 
-![image-20250617120612496](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250617120612496.png)
+![image-20250617120612496](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250617120612496.png)
 
 ### 3.1.1.Filter内存马代码分析
 
@@ -2830,7 +2830,7 @@ filterConfigs.put(filterName, applicationFilterConfig);
 %>
 ```
 
-![image-20250617171025240](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250617171025240.png)
+![image-20250617171025240](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250617171025240.png)
 
 POST：我这里弄个POST请求的内存马，可以看到我们可以在站点Context下任意Servlet执行命令
 
@@ -2897,7 +2897,7 @@ POST：我这里弄个POST请求的内存马，可以看到我们可以在站点
 
 ```
 
-![image-20250617170136024](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250617170136024.png)
+![image-20250617170136024](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250617170136024.png)
 
 ### 3.2.1.Listener 内存马 demo 代码分析
 
@@ -3024,9 +3024,9 @@ standardContext.addApplicationEventListener(new MaliciousListener());
 
 ```
 
-![image-20250617192407430](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250617192407430.png)
+![image-20250617192407430](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250617192407430.png)
 
-![image-20250617190313671](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250617190313671.png)
+![image-20250617190313671](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250617190313671.png)
 
 ## 3.4.Tomcat Upgrade 内存马
 
@@ -3053,7 +3053,7 @@ public class TestConfig implements WebServerFactoryCustomizer<TomcatServletWebSe
 }
 ```
 
-![image-20250618102351434](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250618102351434.png)
+![image-20250618102351434](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250618102351434.png)
 
 创建我们的内存马，这里不想搞个WEB-INF目录了，还是上面说的Spring目录问题，如果有佬有更方便的办法可以教一下，直接用java版的内存马代码触发
 
@@ -3164,11 +3164,11 @@ Upgrade: doctor
 cmd: open -na Calculator
 ```
 
-![image-20250618103350144](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250618103350144.png)
+![image-20250618103350144](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250618103350144.png)
 
 任意路径即可触发
 
-![image-20250618103435359](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250618103435359.png)
+![image-20250618103435359](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250618103435359.png)
 
 如果有勤快的可以尝试一下JSP版本的内存马。
 
@@ -3299,7 +3299,7 @@ public class TomcatExecutorDemo extends ThreadPoolExecutor {
 }
 ```
 
-![image-20250618121236875](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250618121236875.png)
+![image-20250618121236875](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250618121236875.png)
 
 再在web目录下写入内存马一样可以执行
 
@@ -3452,13 +3452,13 @@ public class TomcatExecutorDemo extends ThreadPoolExecutor {
 %>
 ```
 
-![image-20250618121258227](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250618121258227.png)
+![image-20250618121258227](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250618121258227.png)
 
 还是同样的流程访问一遍内存马触发，然后访问任意Context执行命令，可以看到不存在的Context一样可以执行内存马
 
-![image-20250618120403566](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250618120403566.png)
+![image-20250618120403566](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250618120403566.png)
 
-![image-20250618120530146](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250618120530146.png)
+![image-20250618120530146](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250618120530146.png)
 
 还有反连请求的内存马，这里不知道应对什么，如果是为了应对安全设备检测，服务端主动发送请求里也有字符串特征，如果应对无回显情况，那么上面的内存马放到response头也是可以回显的，两种方法吧下面这种更酷一些。
 
@@ -3641,17 +3641,17 @@ public class TomcatExecutorDemo extends ThreadPoolExecutor {
 
 yakit配置反连服务器这样就可以持续接受服务端连接
 
-![image-20250618134107293](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250618134107293.png)
+![image-20250618134107293](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250618134107293.png)
 
 还是一样请求内存马地址触发内存马植入，这里的success是累加的，因为我们请求了好几次所以实际应该是生成了3个内存马
 
-![image-20250618134138731](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250618134138731.png)
+![image-20250618134138731](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250618134138731.png)
 
 再请求任意地址触发内存马获取服务端主动请求
 
-![image-20250618134309919](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250618134309919.png)
+![image-20250618134309919](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250618134309919.png)
 
-![image-20250618134842645](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250618134842645.png)
+![image-20250618134842645](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250618134842645.png)
 
 ## 3.6.Netty中间件内存马
 
@@ -3709,7 +3709,7 @@ RouterFunction 或注解控制器根据请求路径、方法等条件匹配对�
   }
 ```
 
-![image-20250619173504849](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250619173504849.png)
+![image-20250619173504849](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250619173504849.png)
 
 ```markdown
 //请求inject触发内存马
@@ -3720,7 +3720,7 @@ User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML,
 Content-Type: application/json
 ```
 
-![image-20250619173631979](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250619173631979.png)
+![image-20250619173631979](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250619173631979.png)
 
 ```markdown
 //加上X-CMD触发内存马
@@ -3732,7 +3732,7 @@ Content-Type: application/json
 X-CMD: whoami
 ```
 
-![image-20250619173745287](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250619173745287.png)
+![image-20250619173745287](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250619173745287.png)
 
 ### 3.demo代码分析
 
@@ -3867,13 +3867,13 @@ public class SpringControllerDemo {
 }
 ```
 
-![image-20250618143601940](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250618143601940.png)
+![image-20250618143601940](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250618143601940.png)
 
 访问类中写的test2地址触发内存马，再次重复这个servlet我们可以随便输入，一样可以触发命令执行
 
-![image-20250618143654656](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250618143654656.png)
+![image-20250618143654656](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250618143654656.png)
 
-![image-20250618143747044](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250618143747044.png)
+![image-20250618143747044](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250618143747044.png)
 
 #### 2.demo代码分析
 
@@ -4008,7 +4008,7 @@ RequestMappingInfo info = new RequestMappingInfo(urlPattern, condition, null, nu
 
 **简单理解**：  **路径随机化**，`controllerName`是8位随机字符串（如`/aBcDefgH`），规避传统扫描器的特征检测。  **隐蔽性设计**，未指定HTTP方法（如GET/POST），允许通过任意方法触发。  
 
-![image-20250618151636832](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250618151636832.png)
+![image-20250618151636832](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250618151636832.png)
 
 ##### 2.5. 动态注册Controller（内存驻留）
 
@@ -4065,7 +4065,7 @@ Spring Interceptor型内存马的编写思路：
 
 选择之前测试的Spring Inyerceptor项目，记得改一下WebConfig.class把注册为拦截器的恶意类改一下，如果报错就按照idea提示修复
 
-![image-20250618172749910](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250618172749910.png)
+![image-20250618172749910](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250618172749910.png)
 
 内存马
 
@@ -4133,9 +4133,9 @@ public class SpringMVCInterceptorDemo implements HandlerInterceptor {
 
 先访问内存马地址触发内存马，采用任意传参方式请求任意路径，成功触发命令执行
 
-![image-20250618172117417](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250618172117417.png)
+![image-20250618172117417](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250618172117417.png)
 
-![image-20250618172337561](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250618172337561.png)
+![image-20250618172337561](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250618172337561.png)
 
 #### 2.demo代码分析
 
@@ -4405,7 +4405,7 @@ public class SpringWebFluxDemo implements WebFilter{
 
 直接请求地址直接执行命令，无需触发。
 
-![image-20250618182145492](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250618182145492.png)
+![image-20250618182145492](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250618182145492.png)
 
 ### 2.demo代码分析
 
@@ -4667,15 +4667,15 @@ public class SpringWebFluxGodzila implements WebFilter {
   }
 ```
 
-![image-20250619191021044](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250619191021044.png)
+![image-20250619191021044](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250619191021044.png)
 
 访问/inject2触发内存马，Godzilla成功连接内存马
 
-![image-20250619191626202](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250619191626202.png)
+![image-20250619191626202](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250619191626202.png)
 
-![image-20250619191733699](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250619191733699.png)
+![image-20250619191733699](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250619191733699.png)
 
-![image-20250619191851004](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250619191851004.png)
+![image-20250619191851004](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250619191851004.png)
 
 # 五.其他内存马
 
@@ -4766,13 +4766,13 @@ Websocket内存马
 1.启动Web应用，老规矩GETorPOST访问http://localhost:8080/zhandian1/wscmd.jsp?path=/ipjipwen，传参任意路径触发内存马
 ```
 
-![image-20250620164424989](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250620164424989.png)
+![image-20250620164424989](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250620164424989.png)
 
-![image-20250620164651598](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250620164651598.png)
+![image-20250620164651598](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250620164651598.png)
 
 再通过WS协议去跟服务端建立连接执行命令，这里的路径是我们传参的路径
 
-![image-20250620164756515](/Users/macos/Desktop/red/资料/my_wiki/JAVAWEB内存马/JAVAWEB内存马研究.assets/image-20250620164756515.png)
+![image-20250620164756515](https://raw.githubusercontent.com/d0ctorsec/IMG_File/refs/heads/main/JAVA内存马研究/image-20250620164756515.png)
 
 星火的师傅针对Websocket内存马还开发了[Godzilla、代理、绕Nginx、绕CDN]等扩展内存马，我这就不演示了想了解的可以自己复现，有什么问题可以问我咯。
 
