@@ -42,10 +42,12 @@ http://www.bmth666.cn/2023/04/15/CVE-2022-22947-SpringCloud-GateWay-SpEL-RCE/ind
 	•Tomcat Valve型内存马
 	•Tomcat Upgrade内存马
 	•Tomcat Executor内存马
+	•Netty中间件内存马
 2.Spring Web系内存马
 	•SpringMVC框架内存马
 	•SpringWebFlux内存马
-		■Netty中间件内存马
+3.其他内存马
+	•Websocket内存马
 
 以下是引用[su18](https://nosec.org/home/detail/5049.html)大佬对于内存马的分类，我这里重新整理了一下精简为了3种大类：
 • `框架型内存马`：除了传统的 Servlet 项目，使用 Spring 全家桶进行开发的项目越来越多，而 Spring-MVC 则是自实现了相关路由注册查找逻辑，以及使用拦截器来进行过滤，思想上与 Servlet-Filter 的设计类似。
