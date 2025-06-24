@@ -1,7 +1,6 @@
 ![LearnJavaMemshellFromZero-Recurrence](https://socialify.git.ci/d0ctorsec/LearnJavaMemshellFromZero-Recurrence/image?font=Rokkitt&forks=1&issues=1&language=1&name=1&owner=1&stargazers=1&theme=Light)
 
 <h3 align="center">基于W01fh4cker大佬的LearnJavaMemshellFromZero从零掌握java内存马的复现重组版本，整篇文章均可复现，目录层级比较多建议下载阅读，感谢点个★star咯。
-
 复现的基础上重组了目录结构，将内存马划分为三大类，额外补充了其他佬的：webSocket、SpringWebFlux Godzilla内存马
 </h3>
 
@@ -35,7 +34,7 @@ http://www.bmth666.cn/2023/04/15/CVE-2022-22947-SpringCloud-GateWay-SpEL-RCE/ind
 
 ```markdown
 通过学习本文我也对内存马有了个全新的分类，`所以全文目录都是基于内存马的分类展开的,可以直接参照目录结构`，当然内存马除了本文提到的还有很多如jetty、XXL-JOB等内存马，本文列举的是比较通用的覆盖现有主流中间件+Web框架，可以理解为覆盖广兼容性好。
-1.Tomcat系内存马
+1.中间件系内存马
 	•Servlet内存马
 	•Filter内存马
 	•Listener内存马
@@ -43,7 +42,7 @@ http://www.bmth666.cn/2023/04/15/CVE-2022-22947-SpringCloud-GateWay-SpEL-RCE/ind
 	•Tomcat Upgrade内存马
 	•Tomcat Executor内存马
 	•Netty中间件内存马
-2.Spring Web系内存马
+2.框架系内存马
 	•SpringMVC框架内存马
 	•SpringWebFlux内存马
 3.其他内存马
