@@ -1,11 +1,22 @@
 ![LearnJavaMemshellFromZero-Recurrence](https://socialify.git.ci/d0ctorsec/LearnJavaMemshellFromZero-Recurrence/image?font=Rokkitt&forks=1&issues=1&language=1&name=1&owner=1&stargazers=1&theme=Light)
 
-<h3 align="center">基于W01fh4cker大佬的LearnJavaMemshellFromZero从零掌握java内存马的复现重组版本，整篇文章均可复现，目录层级比较多建议下载阅读，感谢点个★star咯。
-复现的基础上重组了目录结构，将内存马划分为三大类，额外补充了其他佬的：webSocket、SpringWebFlux Godzilla内存马
+<h3 align="center">
+基于W01fh4cker大佬的LearnJavaMemshellFromZero从零掌握java内存马的复现重组版本，整篇文章均可复现，复现的基础上重组了目录结构，将内存马划分为三大类，额外补充了其他佬的：webSocket、SpringWebFlux Godzilla内存马，目录层级比较多建议下载阅读。
+<span style="
+    background: linear-gradient(90deg, #FFD700, #FFA500, #FF8C00);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-weight: bold;
+    text-shadow: 0 0 8px rgba(255, 165, 0, 0.4);
+    animation: gradientGlow 2s infinite alternate;
+">感谢点个☆Star咯</span>
 </h3>
-
-
-
+<style>@keyframes gradientGlow {
+  0% { text-shadow: 0 0 8px rgba(255, 215, 0, 0.4); }
+  100% { text-shadow: 0 0 12px rgba(255, 140, 0, 0.6); }
+}
+</style>
 
 ---
 
